@@ -9,10 +9,9 @@ export ORDERER_CA="${PWD}/organizations/ordererOrganizations/universidades.com/o
 export ORDERER_ADMIN_TLS_SIGN_CERT="${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/tls/server.crt"
 export ORDERER_ADMIN_TLS_PRIVATE_KEY="${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/tls/server.key"
 
-# Unir el orderer al canal
-echo "Uniendo el orderer al canal ${CHANNEL_NAME}..."
-osnadmin channel join --channelID $CHANNEL_NAME --config-block $CHANNEL_BLOCK_PATH -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
-echo "Orderer unido al canal."
+# Listar canales para el orderer
+echo "Listando canales para el orderer..."
+osnadmin channel list -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
 echo "---------------------------------------------"
 
 # Configuración para los peers
@@ -23,7 +22,7 @@ peers=(
     ["peer0.berlin.universidades.com:2051"]="BerlinMSP|${PWD}/organizations/peerOrganizations/berlin.universidades.com/peers/peer0.berlin.universidades.com/tls/ca.crt|${PWD}/organizations/peerOrganizations/berlin.universidades.com/users/Admin@berlin.universidades.com/msp"
 )
 
-# Habilitar TLS si es necesario
+# Habilitar TLS 
 export CORE_PEER_TLS_ENABLED=true
 
 # Unir cada peer al canal
