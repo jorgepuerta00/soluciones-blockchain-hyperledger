@@ -26,20 +26,38 @@ function yaml_ccp {
         organizations/ccp-template.yaml | sed -e $'s/\\\\n/\\\n          /g'
 }
 
-ORG=1
+ORG=madrid
 P0PORT=7051
 CAPORT=7054
-PEERPEM=organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
-CAPEM=organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+PEERPEM=organizations/peerOrganizations/madrid.universidades.com/tlsca/tlsca.madrid.universidades.com-cert.pem
+CAPEM=organizations/peerOrganizations/madrid.universidades.com/ca/ca.madrid.universidades.com-cert.pem
 
-echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org1.example.com/connection-org1.json
-echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org1.example.com/connection-org1.yaml
+echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/madrid.universidades.com/connection-madrid.json
+echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/madrid.universidades.com/connection-madrid.yaml
 
-ORG=2
+ORG=bogota
 P0PORT=9051
 CAPORT=8054
-PEERPEM=organizations/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
-CAPEM=organizations/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
+PEERPEM=organizations/peerOrganizations/bogota.universidades.com/tlsca/tlsca.bogota.universidades.com-cert.pem
+CAPEM=organizations/peerOrganizations/bogota.universidades.com/ca/ca.bogota.universidades.com-cert.pem
 
-echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org2.example.com/connection-org2.json
-echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org2.example.com/connection-org2.yaml
+echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/bogota.universidades.com/connection-bogota.json
+echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/bogota.universidades.com/connection-bogota.yaml
+
+ORG=berlin
+P0PORT=2051
+CAPORT=2054
+PEERPEM=organizations/peerOrganizations/berlin.universidades.com/tlsca/tlsca.berlin.universidades.com-cert.pem
+CAPEM=organizations/peerOrganizations/berlin.universidades.com/ca/ca.berlin.universidades.com-cert.pem
+
+echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/berlin.universidades.com/connection-berlin.json
+echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/berlin.universidades.com/connection-berlin.yaml
+
+ORG=iebs
+P0PORT=4051
+CAPORT=4054
+PEERPEM=organizations/peerOrganizations/iebs.universidades.com/tlsca/tlsca.iebs.universidades.com-cert.pem
+CAPEM=organizations/peerOrganizations/iebs.universidades.com/ca/ca.iebs.universidades.com-cert.pem
+
+echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/iebs.universidades.com/connection-iebs.json
+echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/iebs.universidades.com/connection-oriebsg2.yaml
