@@ -66,6 +66,26 @@ services:
     networks:
       - universidades_network
 
+  ca_iebs:
+    image: hyperledger/fabric-ca:1.5.2
+    labels:
+      service: hyperledger-fabric
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-iebs
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=4054
+      - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:14054
+    ports:
+      - "4054:4054"
+      - "14054:14054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/iebs:/etc/hyperledger/fabric-ca-server
+    container_name: ca_iebs
+    networks:
+      - universidades_network
+
   ca_orderer:
     image: hyperledger/fabric-ca:1.5.2
     labels:

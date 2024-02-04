@@ -77,6 +77,24 @@ Organizations:
         Type: Signature
         Rule: "OR('BerlinMSP.peer')"
 
+  - &Iebs
+    Name: IebsMSP
+    ID: IebsMSP
+    MSPDir: ../organizations/peerOrganizations/iebs.universidades.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('IebsMSP.admin', 'IebsMSP.peer', 'IebsMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('IebsMSP.admin', 'IebsMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('IebsMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('IebsMSP.peer')"
+
 ################################################################################
 #   SECTION: Capabilities
 ################################################################################
@@ -180,4 +198,5 @@ Profiles:
         - *Madrid
         - *Bogota
         - *Berlin
+        - *Iebs
       Capabilities: *ApplicationCapabilities
