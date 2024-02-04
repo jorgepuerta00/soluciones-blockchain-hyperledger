@@ -304,3 +304,83 @@ function createBerlin() {
 
   cp "${PWD}/organizations/peerOrganizations/berlin.universidades.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/berlin.universidades.com/users/Admin@berlin.universidades.com/msp/config.yaml"
 }
+
+function createIebs() {
+  infoln "Enrolling the CA admin"
+  mkdir -p organizations/peerOrganizations/iebs.universidades.com/
+
+  export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/iebs.universidades.com/
+
+  set -x
+  fabric-ca-client enroll -u https://admin:adminpw@localhost:4054 --caname ca-iebs --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  echo 'NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/localhost-4054-ca-iebs.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/localhost-4054-ca-iebs.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/localhost-4054-ca-iebs.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/localhost-4054-ca-iebs.pem
+    OrganizationalUnitIdentifier: orderer' > "${PWD}/organizations/peerOrganizations/iebs.universidades.com/msp/config.yaml"
+
+  infoln "Registering peer0"
+  set -x
+  fabric-ca-client register --caname ca-iebs --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  infoln "Registering user"
+  set -x
+  fabric-ca-client register --caname ca-iebs --id.name user1 --id.secret user1pw --id.type client --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  infoln "Registering the org admin"
+  set -x
+  fabric-ca-client register --caname ca-iebs --id.name iebsadmin --id.secret iebsadminpw --id.type admin --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  infoln "Generating the peer0 msp"
+  set -x
+  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:4054 --caname ca-iebs -M "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/msp" --csr.hosts peer0.iebs.universidades.com --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/msp/config.yaml"
+
+  infoln "Generating the peer0-tls certificates"
+  set -x
+  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:4054 --caname ca-iebs -M "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls" --enrollment.profile tls --csr.hosts peer0.iebs.universidades.com --csr.hosts localhost --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/tlscacerts/"* "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt"
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/signcerts/"* "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/server.crt"
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/keystore/"* "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/server.key"
+
+  mkdir -p "${PWD}/organizations/peerOrganizations/iebs.universidades.com/msp/tlscacerts"
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/tlscacerts/"* "${PWD}/organizations/peerOrganizations/iebs.universidades.com/msp/tlscacerts/ca.crt"
+
+  mkdir -p "${PWD}/organizations/peerOrganizations/iebs.universidades.com/tlsca"
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/tlscacerts/"* "${PWD}/organizations/peerOrganizations/iebs.universidades.com/tlsca/tlsca.iebs.universidades.com-cert.pem"
+
+  mkdir -p "${PWD}/organizations/peerOrganizations/iebs.universidades.com/ca"
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/msp/cacerts/"* "${PWD}/organizations/peerOrganizations/iebs.universidades.com/ca/ca.iebs.universidades.com-cert.pem"
+
+  infoln "Generating the user msp"
+  set -x
+  fabric-ca-client enroll -u https://user1:user1pw@localhost:4054 --caname ca-iebs -M "${PWD}/organizations/peerOrganizations/iebs.universidades.com/users/User1@iebs.universidades.com/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/iebs.universidades.com/users/User1@iebs.universidades.com/msp/config.yaml"
+
+  infoln "Generating the org admin msp"
+  set -x
+  fabric-ca-client enroll -u https://iebsadmin:iebsadminpw@localhost:4054 --caname ca-iebs -M "${PWD}/organizations/peerOrganizations/iebs.universidades.com/users/Admin@iebs.universidades.com/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/iebs/tls-cert.pem"
+  { set +x; } 2>/dev/null
+
+  cp "${PWD}/organizations/peerOrganizations/iebs.universidades.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/iebs.universidades.com/users/Admin@iebs.universidades.com/msp/config.yaml"
+}
