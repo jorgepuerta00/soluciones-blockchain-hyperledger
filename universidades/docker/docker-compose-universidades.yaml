@@ -15,7 +15,7 @@ services:
 
   orderer.universidades.com:
     container_name: orderer.universidades.com
-    image: hyperledger/fabric-orderer:2.3.3
+    image: hyperledger/fabric-orderer:2.3.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -69,7 +69,7 @@ services:
 
   peer0.madrid.universidades.com:
     container_name: peer0.madrid.universidades.com
-    image: hyperledger/fabric-peer:2.3.3
+    image: hyperledger/fabric-peer:2.3.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -124,7 +124,7 @@ services:
 
   peer0.bogota.universidades.com:
     container_name: peer0.bogota.universidades.com
-    image: hyperledger/fabric-peer:2.3.3
+    image: hyperledger/fabric-peer:2.3.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -179,7 +179,7 @@ services:
 
   peer0.berlin.universidades.com:
     container_name: peer0.berlin.universidades.com
-    image: hyperledger/fabric-peer:2.3.3
+    image: hyperledger/fabric-peer:2.3.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -234,7 +234,7 @@ services:
 
   peer0.iebs.universidades.com:
     container_name: peer0.iebs.universidades.com
-    image: hyperledger/fabric-peer:2.3.3
+    image: hyperledger/fabric-peer:2.3.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -288,7 +288,9 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
+        - /var/run/:/host/var/run/
         - ../organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations
+        - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
     depends_on:
       - peer0.madrid.universidades.com
       - peer0.bogota.universidades.com

@@ -17,7 +17,7 @@ for peer_address in "${!peers[@]}"; do
     export CORE_PEER_MSPCONFIGPATH="${ADDR[2]}"
     export CORE_PEER_ADDRESS="$peer_address"
 
-    echo "Listing channels for peer: $CORE_PEER_ADDRESS"
+    echo "listing channels for peer: $CORE_PEER_ADDRESS"
     peer channel list
     echo "---------------------------------------------"
 done
