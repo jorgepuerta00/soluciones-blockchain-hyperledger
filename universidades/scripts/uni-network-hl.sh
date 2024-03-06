@@ -194,6 +194,7 @@ echo -e "\e[1;32m Done \e[0m"
 # Invoking the chaincode to register a student
 echo -e "\e[1;33m;40m Invoking the chaincode to register a student... \e[0m"
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.universidades.com --tls --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem -C universidadeschannel -n registroAlumnos --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/bogota.universidades.com/peers/peer0.bogota.universidades.com/tls/ca.crt --peerAddresses localhost:2051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/berlin.universidades.com/peers/peer0.berlin.universidades.com/tls/ca.crt --peerAddresses localhost:4051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt -c '{"Args":["CreateStudent","student7","John","Doe","USA","madrid.universidades.com"]}'
+echo -e "\e[1;32m Done \e[0m"
 
 # Invoking the chaincode to get all students
 echo -e "\e[1;33m;40m Invoking the chaincode to get all students... \e[0m"
