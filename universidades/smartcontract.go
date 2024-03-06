@@ -16,17 +16,17 @@ type SmartContract struct {
 // Insert struct field in alphabetic order => to achieve determinism across languages
 // golang keeps the order when marshal to json but doesn't order automatically
 type Student struct {
-	ID             	string `json:"ID"`
-	Name          	string `json:"Name"`
-	Surname         string `json:"Surname"`
-	Country         string `json:"Country"`
-	UniversityID 	string `json:"UniversityID"`
+	ID           string `json:"ID"`
+	Name         string `json:"Name"`
+	Surname      string `json:"Surname"`
+	Country      string `json:"Country"`
+	UniversityID string `json:"UniversityID"`
 }
 
 // InitLedger adds a base set of students to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	students := []Student{
-		{ID: "student1", Name: "Lino", 	Surname: "Pitini", Country: "Spain", UniversityID: "Madrid1"},
+		{ID: "student1", Name: "Lino", Surname: "Pitini", Country: "Spain", UniversityID: "Madrid1"},
 		{ID: "student2", Name: "Jorge", Surname: "Puerta", Country: "Colombia", UniversityID: "Bogota2"},
 		{ID: "student3", Name: "Sergio", Surname: "Torres", Country: "Spain", UniversityID: "Madrid1"},
 		{ID: "student4", Name: "William", Surname: "Giraldo", Country: "Spain", UniversityID: "Madrid1"},
@@ -60,10 +60,10 @@ func (s *SmartContract) CreateStudent(ctx contractapi.TransactionContextInterfac
 	}
 
 	student := Student{
-		ID: id,
-		Name: name,
-		Surname: surname,
-		Country: country,
+		ID:           id,
+		Name:         name,
+		Surname:      surname,
+		Country:      country,
 		UniversityID: universityid,
 	}
 	studentJSON, err := json.Marshal(student)
@@ -105,10 +105,10 @@ func (s *SmartContract) UpdateStudent(ctx contractapi.TransactionContextInterfac
 
 	// overwriting original student with new student
 	student := Student{
-		ID: id,
-		Name: name,
-		Surname: surname,
-		Country: country,
+		ID:           id,
+		Name:         name,
+		Surname:      surname,
+		Country:      country,
 		UniversityID: universityid,
 	}
 	studentJSON, err := json.Marshal(student)
