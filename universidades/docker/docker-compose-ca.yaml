@@ -1,7 +1,7 @@
 version: '3.7'
 
 networks:
-  universidades_network:
+  universidades.com:
     name: universidades_network
 
 services:
@@ -24,7 +24,7 @@ services:
       - ../organizations/fabric-ca/madrid:/etc/hyperledger/fabric-ca-server
     container_name: ca_madrid
     networks:
-      - universidades_network
+      - universidades.com
 
   ca_bogota:
     image: hyperledger/fabric-ca:1.5.2
@@ -44,7 +44,7 @@ services:
       - ../organizations/fabric-ca/bogota:/etc/hyperledger/fabric-ca-server
     container_name: ca_bogota
     networks:
-      - universidades_network
+      - universidades.com
 
   ca_berlin:
     image: hyperledger/fabric-ca:1.5.2
@@ -64,7 +64,7 @@ services:
       - ../organizations/fabric-ca/berlin:/etc/hyperledger/fabric-ca-server
     container_name: ca_berlin
     networks:
-      - universidades_network
+      - universidades.com
 
   ca_iebs:
     image: hyperledger/fabric-ca:1.5.2
@@ -84,7 +84,7 @@ services:
       - ../organizations/fabric-ca/iebs:/etc/hyperledger/fabric-ca-server
     container_name: ca_iebs
     networks:
-      - universidades_network
+      - universidades.com
 
   ca_orderer:
     image: hyperledger/fabric-ca:1.5.2
@@ -104,4 +104,4 @@ services:
       - ../organizations/fabric-ca/ordererOrg:/etc/hyperledger/fabric-ca-server
     container_name: ca_orderer
     networks:
-      - universidades_network
+      - universidades.com

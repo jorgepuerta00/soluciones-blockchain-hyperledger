@@ -191,10 +191,15 @@ Profiles:
       <<: *OrdererDefaults
       Organizations:
         - *OrdererOrg
+        - *Madrid
+        - *Bogota
+        - *Berlin
+        - *Iebs
       Capabilities: *OrdererCapabilities
     Application:
       <<: *ApplicationDefaults
       Organizations:
+        - *OrdererOrg
         - *Madrid
         - *Bogota
         - *Berlin

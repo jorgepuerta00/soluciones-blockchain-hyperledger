@@ -8,8 +8,8 @@ volumes:
   peer0.iebs.universidades.com:
 
 networks:
-  universidades_network:
-    name: universidades_network
+  universidades.com:
+    external: true
 
 services:
 
@@ -52,7 +52,7 @@ services:
       - 7053:7053
       - 17050:17050
     networks:
-      - universidades_network
+      - universidades.com
 
   couchdb0:
     container_name: couchdb0
@@ -65,7 +65,7 @@ services:
     ports:
       - "5984:5984"
     networks:
-      - universidades_network
+      - universidades.com
 
   peer0.madrid.universidades.com:
     container_name: peer0.madrid.universidades.com
@@ -105,7 +105,7 @@ services:
       - 7051:7051
       - 17051:17051
     networks:
-      - universidades_network
+      - universidades.com
     depends_on:
       - couchdb0
 
@@ -120,7 +120,7 @@ services:
     ports:
       - "7984:5984"
     networks:
-      - universidades_network
+      - universidades.com
 
   peer0.bogota.universidades.com:
     container_name: peer0.bogota.universidades.com
@@ -160,7 +160,7 @@ services:
       - 9051:9051
       - 19051:19051
     networks:
-      - universidades_network
+      - universidades.com
     depends_on:
       - couchdb1
 
@@ -175,7 +175,7 @@ services:
     ports:
       - "9984:5984"
     networks:
-      - universidades_network
+      - universidades.com
 
   peer0.berlin.universidades.com:
     container_name: peer0.berlin.universidades.com
@@ -215,7 +215,7 @@ services:
       - 2051:2051
       - 12051:12051
     networks:
-      - universidades_network
+      - universidades.com
     depends_on:
       - couchdb2
 
@@ -230,7 +230,7 @@ services:
     ports:
       - "4984:5984"
     networks:
-      - universidades_network
+      - universidades.com
 
   peer0.iebs.universidades.com:
     container_name: peer0.iebs.universidades.com
@@ -270,7 +270,7 @@ services:
       - 4051:4051
       - 14051:14051
     networks:
-      - universidades_network
+      - universidades.com
     depends_on:
       - couchdb3
 
@@ -297,4 +297,4 @@ services:
       - peer0.berlin.universidades.com
       - peer0.iebs.universidades.com
     networks:
-      - universidades_network
+      - universidades.com

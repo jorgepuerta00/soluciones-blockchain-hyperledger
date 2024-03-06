@@ -1,0 +1,175 @@
+{
+  "network-configs": {
+    "network-1": {
+      "version": "1.0",
+      "name": "UniversidadesNetwork",
+      "client": {
+        "tlsEnable": true,
+        "adminCredential": {
+          "id": "admin",
+          "password": "adminpw"
+        },
+        "enableAuthentication": true
+      },
+      "channels": {
+        "universidadeschannel": {
+          "orderers": [
+            "orderer.universidades.com"
+          ],
+          "peers": {
+            "peer0.madrid.universidades.com": {},
+            "peer0.bogota.universidades.com": {},
+            "peer0.berlin.universidades.com": {},
+            "peer0.iebs.universidades.com": {}
+          }
+        }
+      },
+      "organizations": {
+        "MadridMSP": {
+          "mspid": "MadridMSP",
+          "adminPrivateKey": {
+            "path": "organizations/peerOrganizations/madrid.universidades.com/users/Admin@madrid.universidades.com/msp/keystore"
+          },
+          "peers": [
+            "peer0.madrid.universidades.com"
+          ],
+          "certificateAuthorities": [
+            "ca_madrid"
+          ]
+        },
+        "BogotaMSP": {
+          "mspid": "BogotaMSP",
+          "adminPrivateKey": {
+            "path": "organizations/peerOrganizations/bogota.universidades.com/users/Admin@bogota.universidades.com/msp/keystore"
+          },
+          "peers": [
+            "peer0.bogota.universidades.com"
+          ],
+          "certificateAuthorities": [
+            "ca_bogota"
+          ]
+        },
+        "BerlinMSP": {
+          "mspid": "BerlinMSP",
+          "adminPrivateKey": {
+            "path": "organizations/peerOrganizations/berlin.universidades.com/users/Admin@berlin.universidades.com/msp/keystore"
+          },
+          "peers": [
+            "peer0.berlin.universidades.com"
+          ],
+          "certificateAuthorities": [
+            "ca_berlin"
+          ]
+        },
+        "IebsMSP": {
+          "mspid": "IebsMSP",
+          "adminPrivateKey": {
+            "path": "organizations/peerOrganizations/iebs.universidades.com/users/Admin@iebs.universidades.com/msp/keystore"
+          },
+          "peers": [
+            "peer0.iebs.universidades.com"
+          ],
+          "certificateAuthorities": [
+            "ca_iebs"
+          ]
+        }
+      },
+      "orderers": {
+        "orderer.universidades.com": {
+          "url": "grpcs://localhost:7050",
+          "grpcOptions": {
+            "ssl-target-name-override": "orderer.universidades.com"
+          },
+          "tlsCACerts": {
+            "path": "organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem"
+          }
+        }
+      },
+      "peers": {
+        "peer0.madrid.universidades.com": {
+          "url": "grpcs://localhost:7051",
+          "eventUrl": "grpcs://localhost:7053",
+          "grpcOptions": {
+            "ssl-target-name-override": "peer0.madrid.universidades.com"
+          },
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt"
+          }
+        },
+        "peer0.bogota.universidades.com": {
+          "url": "grpcs://localhost:9051",
+          "eventUrl": "grpcs://localhost:9053",
+          "grpcOptions": {
+            "ssl-target-name-override": "peer0.bogota.universidades.com"
+          },
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/bogota.universidades.com/peers/peer0.bogota.universidades.com/tls/ca.crt"
+          }
+        },
+        "peer0.berlin.universidades.com": {
+          "url": "grpcs://localhost:2051",
+          "eventUrl": "grpcs://localhost:2053",
+          "grpcOptions": {
+            "ssl-target-name-override": "peer0.berlin.universidades.com"
+          },
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/berlin.universidades.com/peers/peer0.berlin.universidades.com/tls/ca.crt"
+          }
+        },
+        "peer0.iebs.universidades.com": {
+          "url": "grpcs://localhost:4051",
+          "eventUrl": "grpcs://localhost:4053",
+          "grpcOptions": {
+            "ssl-target-name-override": "peer0.iebs.universidades.com"
+          },
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt"
+          }
+        }
+      },
+      "certificateAuthorities": {
+        "ca_madrid": {
+          "url": "https://localhost:7054",
+          "caName": "ca-madrid",
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/madrid.universidades.com/ca/ca.madrid.universidades.com-cert.pem"
+          },
+          "httpOptions": {
+            "verify": false
+          }
+        },
+        "ca_bogota": {
+          "url": "https://localhost:8054",
+          "caName": "ca-bogota",
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/bogota.universidades.com/ca/ca.bogota.universidades.com-cert.pem"
+          },
+          "httpOptions": {
+            "verify": false
+          }
+        },
+        "ca_berlin": {
+          "url": "https://localhost:2054",
+          "caName": "ca-berlin",
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/berlin.universidades.com/ca/ca.berlin.universidades.com-cert.pem"
+          },
+          "httpOptions": {
+            "verify": false
+          }
+        },
+        "ca_iebs": {
+          "url": "https://localhost:4054",
+          "caName": "ca-iebs",
+          "tlsCACerts": {
+            "path": "organizations/peerOrganizations/iebs.universidades.com/ca/ca.iebs.universidades.com-cert.pem"
+          },
+          "httpOptions": {
+            "verify": false
+          }
+        }
+      }
+    }
+  },
+  "license": "Apache-2.0"
+}
