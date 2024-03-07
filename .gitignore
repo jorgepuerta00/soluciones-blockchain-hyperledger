@@ -27,3 +27,4 @@ ordererOrganizations/
 ordererOrg/
 channel-artifacts/
 fabric-ca/
+fabric-sample/

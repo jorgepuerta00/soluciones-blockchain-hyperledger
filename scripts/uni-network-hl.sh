@@ -36,7 +36,7 @@ mkdir channel-artifacts
 echo -e "\e[1;32m✅ Created channel-artifacts directory\e[0m"
 
 # Setting environment variables
-export PATH=${PWD}/fabric-ca/bin:${PWD}:$PATH
+export PATH=${PWD}/fabric-sample/bin:${PWD}:$PATH
 echo -e "\e[1;32m✅ Setup environment variables\e[0m"
 echo "---------------------------------------------"
 
@@ -100,7 +100,7 @@ echo "---------------------------------------------"
 echo -e "\e[1;35m➡️ Installing, packing and instantiating the chaincode\e[0m"
 
 # Check the peer version
-export PATH=${PWD}/fabric-ca/bin:${PWD}:$PATH
+export PATH=${PWD}/fabric-sample/bin:${PWD}:$PATH
 echo -e "\e[1;33mPeer version\e[0m"
 peer version
 if [ $? -ne 0 ]; then
@@ -140,7 +140,14 @@ sleep 2
 echo -e "\e[1;32m✅ Chaincode approved successfully\e[0m"
 
 # Check the commit readiness of the chaincode
-peer lifecycle chaincode checkcommitreadiness --channelID universidadeschannel --name registroAlumnos --version 1.0 --sequence 1 --tls --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem --output json
+peer lifecycle chaincode checkcommitreadiness \
+    --channelID universidadeschannel \
+    --name registroAlumnos \
+    --version 1.0 \
+    --sequence 1 \
+    --tls \
+    --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem \
+    --output json
 if [ $? -ne 0 ]; then
     echo -e "\e[1;31;40m❌ failed checkcommitreadiness chaincode\e[0m"
     return 1  
@@ -148,7 +155,19 @@ fi
 echo -e "\e[1;32m✅ Chaincode checkcommitreadiness successfully\e[0m"
 
 # Commit the chaincode
-peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.universidades.com --channelID universidadeschannel --name registroAlumnos --version 1.0 --sequence 1 --tls --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem --peerAddresses localhost:7051  --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt --peerAddresses localhost:9051  --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/bogota.universidades.com/peers/peer0.bogota.universidades.com/tls/ca.crt  --peerAddresses localhost:2051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/berlin.universidades.com/peers/peer0.berlin.universidades.com/tls/ca.crt --peerAddresses localhost:4051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt
+peer lifecycle chaincode commit \
+    -o localhost:7050 \
+    --ordererTLSHostnameOverride orderer.universidades.com \
+    --channelID universidadeschannel \
+    --name registroAlumnos \
+    --version 1.0 \
+    --sequence 1 \
+    --tls \
+    --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem \
+    --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt \
+    --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/bogota.universidades.com/peers/peer0.bogota.universidades.com/tls/ca.crt \
+    --peerAddresses localhost:2051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/berlin.universidades.com/peers/peer0.berlin.universidades.com/tls/ca.crt \
+    --peerAddresses localhost:4051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt
 if [ $? -ne 0 ]; then
     echo -e "\e[1;31;40m❌ failed commiting chaincode\e[0m"
     return 1  
@@ -157,7 +176,10 @@ echo -e "\e[1;32m✅ Chaincode commited successfully\e[0m"
 
 # Query the committed chaincode
 echo -e "\e[1;33mQuerying the committed chaincode... \e[0m"
-peer lifecycle chaincode querycommitted --channelID universidadeschannel --name registroAlumnos --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem
+peer lifecycle chaincode querycommitted \
+    --channelID universidadeschannel \
+    --name registroAlumnos \
+    --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem
 if [ $? -ne 0 ]; then
     echo -e "\e[1;31;40m❌ failed querycommitted chaincode\e[0m"
     return 1  
@@ -165,8 +187,24 @@ fi
 echo -e "\e[1;32m✅ Chaincode querycommitted successfully\e[0m"
 
 # Invoking the chaincode to initialize the ledger
+export CORE_PEER_LOCALMSPID="MadridMSP"
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/madrid.universidades.com/users/Admin@madrid.universidades.com/msp
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt
+export CORE_PEER_ADDRESS=localhost:7051
+
 echo -e "\e[1;35m➡️ Invoking the chaincode to initialize the ledger\e[0m"
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.universidades.com --tls --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem -C universidadeschannel -n registroAlumnos --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/bogota.universidades.com/peers/peer0.bogota.universidades.com/tls/ca.crt --peerAddresses localhost:2051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/berlin.universidades.com/peers/peer0.berlin.universidades.com/tls/ca.crt --peerAddresses localhost:4051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt -c '{"function":"InitLedger","Args":[]}'
+peer chaincode invoke \
+    -o localhost:7050 \
+    --ordererTLSHostnameOverride orderer.universidades.com \
+    --tls \
+    --cafile ${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem \
+    -C universidadeschannel \
+    -n registroAlumnos \
+    --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt \
+    --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/bogota.universidades.com/peers/peer0.bogota.universidades.com/tls/ca.crt \
+    --peerAddresses localhost:2051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/berlin.universidades.com/peers/peer0.berlin.universidades.com/tls/ca.crt \
+    --peerAddresses localhost:4051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt \
+    -c '{"function":"InitLedger","Args":[]}'
 if [ $? -ne 0 ]; then
     echo -e "\e[1;31;40m❌ failed Invoking InitLedger chaincode\e[0m"
     return 1  
