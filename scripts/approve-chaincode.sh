@@ -2,8 +2,8 @@
 
 # Check for the correct number of arguments
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <CHAINCODE_PACKAGE_ID>"
-    exit 1
+    echo -e "\e[1;31;40m❌ Usage: $0 <CHAINCODE_PACKAGE_ID>\e[0m"
+    return 1
 fi
 
 # Assign command-line argument to a variable
@@ -36,7 +36,7 @@ for peer_address in "${!peers[@]}"; do
     export CORE_PEER_TLS_ROOTCERT_FILE="${ADDR[2]}"
     export CORE_PEER_ADDRESS="$peer_address"
 
-    echo "Approving chaincode for organization on peer: $CORE_PEER_ADDRESS"
+    echo -e "\e[1;33mApproving chaincode for organization on peer: $CORE_PEER_ADDRESS\e[0m"
     peer lifecycle chaincode approveformyorg \
         -o $ORDERER_ADDRESS \
         --ordererTLSHostnameOverride $ORDERER_TLS_HOSTNAME_OVERRIDE \
@@ -47,5 +47,10 @@ for peer_address in "${!peers[@]}"; do
         --sequence $SEQUENCE \
         --tls \
         --cafile $CA_FILE
+    if [ $? -ne 0 ]; then
+        echo -e "\e[1;31;40m❌ failed when approveformyorg on peer: ${peer_address}.\e[0m"
+        echo "---------------------------------------------"
+        return 1  
+    fi
     echo "---------------------------------------------"
 done

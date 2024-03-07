@@ -9,13 +9,14 @@ volumes:
 
 networks:
   universidades.com:
-    external: true
+    external:
+      name: universidades_network
 
 services:
 
   orderer.universidades.com:
     container_name: orderer.universidades.com
-    image: hyperledger/fabric-orderer:2.3.2
+    image: hyperledger/fabric-orderer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -69,7 +70,7 @@ services:
 
   peer0.madrid.universidades.com:
     container_name: peer0.madrid.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -124,7 +125,7 @@ services:
 
   peer0.bogota.universidades.com:
     container_name: peer0.bogota.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -179,7 +180,7 @@ services:
 
   peer0.berlin.universidades.com:
     container_name: peer0.berlin.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -234,7 +235,7 @@ services:
 
   peer0.iebs.universidades.com:
     container_name: peer0.iebs.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -250,10 +251,10 @@ services:
       - CORE_PEER_ADDRESS=peer0.iebs.universidades.com:4051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:4051
       - CORE_PEER_CHAINCODEADDRESS=peer0.iebs.universidades.com:4052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:2052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:4052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.iebs.universidades.com:4051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.iebs.universidades.com:4051
-      - CORE_PEER_LOCALMSPID=BerlinMSP
+      - CORE_PEER_LOCALMSPID=IebsMSP
       - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:14051
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
