@@ -22,7 +22,7 @@ for peer_address in "${!peers[@]}"; do
     export CORE_PEER_ADDRESS="localhost:$PORT"
 
     echo -e "\e[1;33mInstalling chaincode on peer: ${peer_address}...\e[0m"
-    peer lifecycle chaincode install basic.tar.gz
+    peer lifecycle chaincode install registroAlumnos.tar.gz
     if [ $? -ne 0 ]; then
         echo -e "\e[1;31;40m❌ failed to install the chaincode on peer ${peer_address}.\e[0m"
         echo "---------------------------------------------"

@@ -88,7 +88,7 @@ echo "---------------------------------------------"
 
 # Joining the orders and peers to the channel
 echo -e "\e[1;35m➡️ Joining orders & peers to the channel\e[0m"
-sleep 5
+sleep 10
 . ./scripts/join_channel.sh
 
 # Listing the channels
@@ -131,12 +131,12 @@ echo -e "\e[1;32m✅ Chaincode was installed successfully\e[0m"
 # Query the installed chaincodes
 query_result=$(peer lifecycle chaincode queryinstalled)
 package_id=$(echo "$query_result" | grep "Package ID:" | sed 's/.*: \([^,]*\),.*/\1/')
-export CC_PACKACHAINCODE_PACKAGE_IDGE_ID="$package_id"
-echo -e "\e[1;32m✅ Chaincode package Id $CHAINCODE_PACKAGE_ID\e[0m"
+export CHAINCODE_PACKAGE_ID="$package_id"
+echo -e "\e[1;32m✅ Chaincode package Id ${CHAINCODE_PACKAGE_ID}\e[0m"
 
 # Approve the chaincode for each organization
 sleep 2
-. ./scripts/approveChaincode.sh $CHAINCODE_PACKAGE_ID
+. ./scripts/approve-chaincode.sh $CHAINCODE_PACKAGE_ID
 echo -e "\e[1;32m✅ Chaincode approved successfully\e[0m"
 
 # Check the commit readiness of the chaincode
