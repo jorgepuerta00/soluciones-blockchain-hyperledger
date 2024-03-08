@@ -15,12 +15,20 @@ export CORE_PEER_TLS_ENABLED=true
 # Loop through the array and set environment variables for each peer
 for peer_address in "${!peers[@]}"; do
     IFS='|' read -ra ADDR <<< "${peers[$peer_address]}"
+    PORT=$(echo $peer_address | cut -d ':' -f2)
     export CORE_PEER_LOCALMSPID="${ADDR[0]}"
     export CORE_PEER_TLS_ROOTCERT_FILE="${ADDR[1]}"
     export CORE_PEER_MSPCONFIGPATH="${ADDR[2]}"
-    export CORE_PEER_ADDRESS="$peer_address"
+    export CORE_PEER_ADDRESS="localhost:$PORT"
 
-    echo "Installing chaincode on peer: $CORE_PEER_ADDRESS"
+    echo -e "\e[1;33mInstalling chaincode on peer: ${peer_address}...\e[0m"
+    sleep 2
     peer lifecycle chaincode install registroAlumnos.tar.gz
+    if [ $? -ne 0 ]; then
+        echo -e "\e[1;31;40m❌ failed to install the chaincode on peer ${peer_address}.\e[0m"
+        echo "---------------------------------------------"
+        return 1  
+    fi
+    echo -e "\e[1;32m✅ chaincode was installed succesfully on peer ${peer_address}.\e[0m"
     echo "---------------------------------------------"
 done

@@ -1,16 +1,30 @@
-/channel-artifacts/*.tx
-/channel-artifacts/*.block
-/ledgers
-/ledgers-backup
-/channel-artifacts/*.json
-/org3-artifacts/crypto-config/*
-organizations/fabric-ca/ordererOrg/*
-organizations/fabric-ca/bogota/*
-organizations/fabric-ca/iebs/*
-organizations/fabric-ca/berlin/*
-organizations/fabric-ca/madrid/*
-organizations/ordererOrganizations/*
-organizations/peerOrganizations/*
-system-genesis-block/*
-*.tar.gz
-log.txt
+# Emacs backup files
+*~
+*#
+.#*
+# Vim file artifacts
+.*.sw*
+.DS_Store
+.project
+# omit Go vendor directories
+vendor/
+.vscode
+.gradle
+.idea
+# Dependency directories
+node_modules/
+# Ignore Gradle build output directory
+build
+package-lock.json
+
+# Eclipse
+.classpath
+.settings
+
+*.gz
+peerOrganizations/
+ordererOrganizations/
+ordererOrg/
+channel-artifacts/
+fabric-ca/
+fabric-sample/

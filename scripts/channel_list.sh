@@ -1,20 +1,6 @@
 #!/bin/bash
 
-# Definir la ruta al bloque de génesis del canal
-CHANNEL_BLOCK_PATH="./channel-artifacts/universidadeschannel.block"
-CHANNEL_NAME="universidadeschannel"
-
-# Configuración para el orderer
-export ORDERER_CA="${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/msp/tlscacerts/tlsca.universidades.com-cert.pem"
-export ORDERER_ADMIN_TLS_SIGN_CERT="${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/tls/server.crt"
-export ORDERER_ADMIN_TLS_PRIVATE_KEY="${PWD}/organizations/ordererOrganizations/universidades.com/orderers/orderer.universidades.com/tls/server.key"
-
-# Listar canales para el orderer
-echo "order channel list..."
-osnadmin channel list -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
-echo "---------------------------------------------"
-
-# Configuración para los peers
+# Define an array of peer configurations
 declare -A peers
 peers=(
     ["peer0.madrid.universidades.com:7051"]="MadridMSP|${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt|${PWD}/organizations/peerOrganizations/madrid.universidades.com/users/Admin@madrid.universidades.com/msp"
@@ -23,19 +9,21 @@ peers=(
     ["peer0.iebs.universidades.com:4051"]="IebsMSP|${PWD}/organizations/peerOrganizations/iebs.universidades.com/peers/peer0.iebs.universidades.com/tls/ca.crt|${PWD}/organizations/peerOrganizations/iebs.universidades.com/users/Admin@iebs.universidades.com/msp"
 )
 
-# Habilitar TLS 
-export CORE_PEER_TLS_ENABLED=true
-
-# Unir cada peer al canal
+# Loop through the array and set environment variables for each peer
 for peer_address in "${!peers[@]}"; do
     IFS='|' read -ra ADDR <<< "${peers[$peer_address]}"
+    PORT=$(echo $peer_address | cut -d ':' -f2)
     export CORE_PEER_LOCALMSPID="${ADDR[0]}"
     export CORE_PEER_TLS_ROOTCERT_FILE="${ADDR[1]}"
     export CORE_PEER_MSPCONFIGPATH="${ADDR[2]}"
-    export CORE_PEER_ADDRESS="$peer_address"
+    export CORE_PEER_ADDRESS="localhost:$PORT"
 
-    echo "joining peer $CORE_PEER_ADDRESS to channel ${CHANNEL_NAME}..."
-    peer channel join -b $CHANNEL_BLOCK_PATH
-    echo "Peer joined successfully"
+    echo -e "\e[1;33mlisting channels for peer: $CORE_PEER_ADDRESS\e[0m"
+    peer channel list
+    if [ $? -ne 0 ]; then
+        echo -e "\e[1;31;40m❌ failed to list channels for peer: ${peer_address}.\e[0m"
+        echo "---------------------------------------------"
+        return 1  
+    fi
     echo "---------------------------------------------"
 done
