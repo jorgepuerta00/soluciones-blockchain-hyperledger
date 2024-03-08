@@ -21,7 +21,7 @@ for peer_address in "${!peers[@]}"; do
     echo -e "\e[1;33mlisting channels for peer: $CORE_PEER_ADDRESS\e[0m"
     peer channel list
     if [ $? -ne 0 ]; then
-        echo -e "\e[1;31;40m❌ failed to list channels for peer: ${peer_address}.\e[0m"
+        echo -e "\e[1;31m❌ failed to list channels for peer: ${peer_address}.\e[0m"
         echo "---------------------------------------------"
         return 1  
     fi

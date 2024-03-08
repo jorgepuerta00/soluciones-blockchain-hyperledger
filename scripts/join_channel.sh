@@ -31,7 +31,7 @@ echo "FABRIC_CFG_PATH: $FABRIC_CFG_PATH"
 echo -e "\e[1;33mjoining orderers to channel...\e[0m"
 osnadmin channel join --channelID ${CHANNEL_NAME} --config-block $CHANNEL_BLOCK_PATH  -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
 if [ $? -ne 0 ]; then
-    echo -e "\e[1;31;40m❌ Failed to join orderer to channel ${CHANNEL_NAME}.\e[0m"
+    echo -e "\e[1;31m❌ Failed to join orderer to channel ${CHANNEL_NAME}.\e[0m"
     return 1  
 fi
 echo "---------------------------------------------"
@@ -107,8 +107,8 @@ for peer_address in "${!peers[@]}"; do
         if echo "$join_output" | grep -q "ledger .* already exists with state .*"; then
             echo -e "\e[1;33m⚠️ peer ${peer_address} is already joined to the channel ${CHANNEL_NAME}.\e[0m"
         else
-            echo -e "\e[1;31;40m❌ failed to join peer $CORE_PEER_ADDRESS to channel ${CHANNEL_NAME}.\e[0m"
-            echo -e "\e[1;31;40m❌ error: $join_output\e[0m"
+            echo -e "\e[1;31m❌ failed to join peer $CORE_PEER_ADDRESS to channel ${CHANNEL_NAME}.\e[0m"
+            echo -e "\e[1;31m❌ error: $join_output\e[0m"
             echo "---------------------------------------------"
             return 1
         fi

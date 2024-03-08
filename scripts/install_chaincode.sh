@@ -25,7 +25,7 @@ for peer_address in "${!peers[@]}"; do
     sleep 2
     peer lifecycle chaincode install registroAlumnos.tar.gz
     if [ $? -ne 0 ]; then
-        echo -e "\e[1;31;40m❌ failed to install the chaincode on peer ${peer_address}.\e[0m"
+        echo -e "\e[1;31m❌ failed to install the chaincode on peer ${peer_address}.\e[0m"
         echo "---------------------------------------------"
         return 1  
     fi

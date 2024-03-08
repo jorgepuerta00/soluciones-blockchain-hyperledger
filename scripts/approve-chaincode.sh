@@ -2,7 +2,7 @@
 
 # Check for the correct number of arguments
 if [ "$#" -ne 1 ]; then
-    echo -e "\e[1;31;40m❌ Usage: $0 <CHAINCODE_PACKAGE_ID>\e[0m"
+    echo -e "\e[1;31m❌ Usage: $0 <CHAINCODE_PACKAGE_ID>\e[0m"
     return 1
 fi
 
@@ -50,7 +50,7 @@ for peer_address in "${!peers[@]}"; do
         --cafile $CA_FILE
 
     if [ $? -ne 0 ]; then
-        echo -e "\e[1;31;40m❌ failed when approveformyorg on peer: ${peer_address}.\e[0m"
+        echo -e "\e[1;31m❌ failed when approveformyorg on peer: ${peer_address}.\e[0m"
         echo "---------------------------------------------"
         return 1  
     fi
