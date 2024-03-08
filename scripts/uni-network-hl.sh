@@ -49,23 +49,23 @@ echo "---------------------------------------------"
 # Registring and enrolling peers and users
 echo -e "\e[1;35mℹ️  Registring and enrolling peers and users\e[0m"
 sleep 2
-. ./script/registerEnroll.sh && createMadrid
+. ./scripts/registerEnroll.sh && createMadrid
 echo "---------------------------------------------"
 sleep 2
-. ./script/registerEnroll.sh && createBogota
+. ./scripts/registerEnroll.sh && createBogota
 echo "---------------------------------------------"
 sleep 2
-. ./script/registerEnroll.sh && createBerlin
+. ./scripts/registerEnroll.sh && createBerlin
 echo "---------------------------------------------"
 sleep 2
-. ./script/registerEnroll.sh && createIebs
+. ./scripts/registerEnroll.sh && createIebs
 echo -e "\e[1;32m✅ Peers enrolled successfully\e[0m"
 echo "---------------------------------------------"
 
 # Registring and enrolling orderer
 echo -e "\e[1;35mℹ️  Registring and enrolling orderer\e[0m"
 sleep 2
-. ./organizations/fabric-ca/registerEnroll.sh && createOrderer
+. ./scripts/registerEnroll.sh && createOrderer
 echo -e "\e[1;32m✅ Orderer enrolled successfully\e[0m"
 echo "---------------------------------------------"
 
