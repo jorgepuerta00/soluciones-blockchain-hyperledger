@@ -36,7 +36,7 @@ mkdir channel-artifacts
 echo -e "\e[1;32m✅ Created channel-artifacts directory\e[0m"
 
 # Setting environment variables
-export PATH=${PWD}/fabric-sample/bin:${PWD}:$PATH
+export PATH=${PWD}/fabric-ca/bin:${PWD}:$PATH
 echo -e "\e[1;32m✅ Setup environment variables\e[0m"
 echo "---------------------------------------------"
 
@@ -100,7 +100,7 @@ echo "---------------------------------------------"
 echo -e "\e[1;35mℹ️  Installing, packing and instantiating the chaincode\e[0m"
 
 # Check the peer version
-export PATH=${PWD}/fabric-sample/bin:${PWD}:$PATH
+export PATH=${PWD}/fabric-ca/bin:${PWD}:$PATH
 echo -e "\e[1;33mPeer version\e[0m"
 peer version
 if [ $? -ne 0 ]; then
