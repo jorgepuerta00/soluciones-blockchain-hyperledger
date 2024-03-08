@@ -26,5 +26,8 @@ peerOrganizations/
 ordererOrganizations/
 ordererOrg/
 channel-artifacts/
-fabric-ca/
 fabric-sample/
+berlin
+bogota
+iebs
+madrid

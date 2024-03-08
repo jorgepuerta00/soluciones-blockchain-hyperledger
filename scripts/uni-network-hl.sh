@@ -36,7 +36,7 @@ mkdir channel-artifacts
 echo -e "\e[1;32m✅ Created channel-artifacts directory\e[0m"
 
 # Setting environment variables
-export PATH=${PWD}/fabric-ca/bin:${PWD}:$PATH
+export PATH=$HOME/hyperledger-fabric/fabric-samples/bin:$PATH
 echo -e "\e[1;32m✅ Setup environment variables\e[0m"
 echo "---------------------------------------------"
 
@@ -49,23 +49,23 @@ echo "---------------------------------------------"
 # Registring and enrolling peers and users
 echo -e "\e[1;35mℹ️  Registring and enrolling peers and users\e[0m"
 sleep 2
-. ./scripts/registerEnroll.sh && createMadrid
+. ./organizations/fabric-ca/registerEnroll.sh && createMadrid
 echo "---------------------------------------------"
 sleep 2
-. ./scripts/registerEnroll.sh && createBogota
+. ./organizations/fabric-ca/registerEnroll.sh && createBogota
 echo "---------------------------------------------"
 sleep 2
-. ./scripts/registerEnroll.sh && createBerlin
+. ./organizations/fabric-ca/registerEnroll.sh && createBerlin
 echo "---------------------------------------------"
 sleep 2
-. ./scripts/registerEnroll.sh && createIebs
+. ./organizations/fabric-ca/registerEnroll.sh && createIebs
 echo -e "\e[1;32m✅ Peers enrolled successfully\e[0m"
 echo "---------------------------------------------"
 
 # Registring and enrolling orderer
 echo -e "\e[1;35mℹ️  Registring and enrolling orderer\e[0m"
 sleep 2
-. ./scripts/registerEnroll.sh && createOrderer
+. ./organizations/fabric-ca/registerEnroll.sh && createOrderer
 echo -e "\e[1;32m✅ Orderer enrolled successfully\e[0m"
 echo "---------------------------------------------"
 
@@ -100,7 +100,8 @@ echo "---------------------------------------------"
 echo -e "\e[1;35mℹ️  Installing, packing and instantiating the chaincode\e[0m"
 
 # Check the peer version
-export PATH=${PWD}/fabric-ca/bin:${PWD}:$PATH
+export PATH=$HOME/hyperledger-fabric/fabric-samples/bin:$PATH
+export FABRIC_CFG_PATH=${PWD}/configtx
 echo -e "\e[1;33mPeer version\e[0m"
 peer version
 if [ $? -ne 0 ]; then
@@ -115,7 +116,6 @@ export CHAINCODE_DIR=${PWD}/chaincode-go/chaincode
 #echo -e "\e[1;32mDone \e[0m"
 
 # Package the chaincode
-export FABRIC_CFG_PATH=${PWD}/configtx
 peer lifecycle chaincode package registroAlumnos.tar.gz --path ${CHAINCODE_DIR} --label registroAlumnos_1.0
 if [ $? -ne 0 ]; then
     echo -e "\e[1;31m❌ failed packaging chaincode\e[0m"
