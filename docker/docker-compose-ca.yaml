@@ -7,7 +7,7 @@ networks:
 services:
 
   ca_madrid:
-    image: hyperledger/fabric-ca:latest
+    image: hyperledger/fabric-ca:1.5.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -27,7 +27,7 @@ services:
       - universidades.com
 
   ca_bogota:
-    image: hyperledger/fabric-ca:latest
+    image: hyperledger/fabric-ca:1.5.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -47,7 +47,7 @@ services:
       - universidades.com
 
   ca_berlin:
-    image: hyperledger/fabric-ca:latest
+    image: hyperledger/fabric-ca:1.5.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -67,7 +67,7 @@ services:
       - universidades.com
 
   ca_iebs:
-    image: hyperledger/fabric-ca:latest
+    image: hyperledger/fabric-ca:1.5.2
     labels:
       service: hyperledger-fabric
     environment:
@@ -87,7 +87,7 @@ services:
       - universidades.com
 
   ca_orderer:
-    image: hyperledger/fabric-ca:latest
+    image: hyperledger/fabric-ca:1.5.2
     labels:
       service: hyperledger-fabric
     environment:

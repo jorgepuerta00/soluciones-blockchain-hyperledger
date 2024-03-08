@@ -192,6 +192,9 @@ export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/madrid.uni
 export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/madrid.universidades.com/peers/peer0.madrid.universidades.com/tls/ca.crt
 export CORE_PEER_ADDRESS=localhost:7051
 
+export PATH=$HOME/hyperledger-fabric/fabric-samples/bin:$PATH
+export FABRIC_CFG_PATH=${PWD}/configtx
+
 echo -e "\e[1;35mℹ️  Invoking the chaincode to initialize the ledger\e[0m"
 peer chaincode invoke \
     -o localhost:7050 \
