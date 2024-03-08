@@ -20,6 +20,7 @@ docker-compose -f docker/docker-compose-universidades.yaml -f docker/docker-comp
 echo -e "\e[1;32m✅ Removed docker compose orphans\e[0m"
 
 # Removing directories
+sudo chmod -R 777 organizations/
 sudo chown -R $USER:$USER organizations
 rm -rf organizations/peerOrganizations
 rm -rf organizations/ordererOrganizations
