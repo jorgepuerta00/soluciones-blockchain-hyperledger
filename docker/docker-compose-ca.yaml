@@ -7,7 +7,7 @@ networks:
 services:
 
   ca_madrid:
-    image: hyperledger/fabric-ca:1.5.2
+    image: hyperledger/fabric-ca:1.5.1
     labels:
       service: hyperledger-fabric
     environment:
@@ -19,7 +19,7 @@ services:
     ports:
       - "7054:7054"
       - "17054:17054"
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d --cfg.affiliations.allowremove  --cfg.identities.allowremove'
     volumes:
       - ../organizations/fabric-ca/madrid:/etc/hyperledger/fabric-ca-server
     container_name: ca_madrid
@@ -27,7 +27,7 @@ services:
       - universidades.com
 
   ca_bogota:
-    image: hyperledger/fabric-ca:1.5.2
+    image: hyperledger/fabric-ca:1.5.1
     labels:
       service: hyperledger-fabric
     environment:
@@ -39,7 +39,7 @@ services:
     ports:
       - "8054:8054"
       - "18054:18054"
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d --cfg.affiliations.allowremove  --cfg.identities.allowremove'
     volumes:
       - ../organizations/fabric-ca/bogota:/etc/hyperledger/fabric-ca-server
     container_name: ca_bogota
@@ -47,7 +47,7 @@ services:
       - universidades.com
 
   ca_berlin:
-    image: hyperledger/fabric-ca:1.5.2
+    image: hyperledger/fabric-ca:1.5.1
     labels:
       service: hyperledger-fabric
     environment:
@@ -59,7 +59,7 @@ services:
     ports:
       - "2054:2054"
       - "12054:12054"
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d --cfg.affiliations.allowremove  --cfg.identities.allowremove'
     volumes:
       - ../organizations/fabric-ca/berlin:/etc/hyperledger/fabric-ca-server
     container_name: ca_berlin
@@ -67,7 +67,7 @@ services:
       - universidades.com
 
   ca_iebs:
-    image: hyperledger/fabric-ca:1.5.2
+    image: hyperledger/fabric-ca:1.5.1
     labels:
       service: hyperledger-fabric
     environment:
@@ -79,7 +79,7 @@ services:
     ports:
       - "4054:4054"
       - "14054:14054"
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d --cfg.affiliations.allowremove  --cfg.identities.allowremove'
     volumes:
       - ../organizations/fabric-ca/iebs:/etc/hyperledger/fabric-ca-server
     container_name: ca_iebs
@@ -87,7 +87,7 @@ services:
       - universidades.com
 
   ca_orderer:
-    image: hyperledger/fabric-ca:1.5.2
+    image: hyperledger/fabric-ca:1.5.1
     labels:
       service: hyperledger-fabric
     environment:
@@ -99,7 +99,7 @@ services:
     ports:
       - "9054:9054"
       - "19054:19054"
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d --cfg.affiliations.allowremove  --cfg.identities.allowremove'
     volumes:
       - ../organizations/fabric-ca/ordererOrg:/etc/hyperledger/fabric-ca-server
     container_name: ca_orderer
