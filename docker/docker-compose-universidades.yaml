@@ -16,7 +16,7 @@ services:
 
   orderer.universidades.com:
     container_name: orderer.universidades.com
-    image: hyperledger/fabric-orderer:2.3.2
+    image: hyperledger/fabric-orderer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -70,7 +70,7 @@ services:
 
   peer0.madrid.universidades.com:
     container_name: peer0.madrid.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -125,7 +125,7 @@ services:
 
   peer0.bogota.universidades.com:
     container_name: peer0.bogota.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -180,7 +180,7 @@ services:
 
   peer0.berlin.universidades.com:
     container_name: peer0.berlin.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -235,7 +235,7 @@ services:
 
   peer0.iebs.universidades.com:
     container_name: peer0.iebs.universidades.com
-    image: hyperledger/fabric-peer:2.3.2
+    image: hyperledger/fabric-peer:latest
     labels:
       service: hyperledger-fabric
     environment:
@@ -277,7 +277,7 @@ services:
 
   cli:
     container_name: cli
-    image: hyperledger/fabric-tools:2.3.2
+    image: hyperledger/fabric-tools:latest
     labels:
       service: hyperledger-fabric
     tty: true
